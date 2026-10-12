@@ -1,5 +1,7 @@
 # ghidra-labs
 
+[![ghidra](https://github.com/trzaidi/ghidra-labs/actions/workflows/ghidra.yml/badge.svg)](https://github.com/trzaidi/ghidra-labs/actions/workflows/ghidra.yml)
+
 Three reverse engineering challenges I wrote to practice and demonstrate
 Ghidra, each with a full walkthrough, Ghidra scripts that automate the
 analysis, and a headless pipeline that runs those scripts in CI.
