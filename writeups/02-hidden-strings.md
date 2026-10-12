@@ -24,8 +24,8 @@ global address, a small integer, and a byte:
 FUN_004011d6(local_48, &DAT_00402080, 0x13, 0x5a);
 fputs(local_48, stdout);
 ...
-FUN_004011d6(local_c8, &DAT_00402068, 0xe, 0xc3);
-iVar1 = strcmp(local_88, local_c8);
+FUN_004011d6(acStack_c8, &DAT_00402068, 0xe, 0xc3);
+iVar1 = strcmp(local_88, acStack_c8);
 ```
 
 The second call's output feeds `strcmp` against user input, so it builds
@@ -99,6 +99,14 @@ Decryption routine: decrypt_string @ 004011d6
 00401322: src=00402030 len=25 key=0x8e -> "GT{x0r_1s_n0t_encrypt10n}"
 Decrypted 5 string(s).
 ```
+
+`main` before the script runs:
+
+![main before DecryptStrings](../docs/images/02-main-before.png)
+
+After the script, every call is labeled and commented with its plaintext:
+
+![main after DecryptStrings](../docs/images/02-main-after.png)
 
 ## 6. Confirm
 

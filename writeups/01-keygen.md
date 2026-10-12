@@ -58,7 +58,15 @@ return parts[3] == name_checksum(name);
 ```
 
 Note how `-O1` turned the range check into one unsigned compare,
-`len - 4 <= 28`. Ghidra shows it as `0x1c < len - 4`.
+`len - 4 <= 28`. Ghidra shows it as `sVar5 - 4 < 0x1d`.
+
+Before, straight out of auto-analysis:
+
+![check_serial before renaming](../docs/images/01-check-serial-before.png)
+
+After renaming the callees and setting the signature:
+
+![check_serial after renaming](../docs/images/01-check-serial-after.png)
 
 Rename the three callees as you identify them:
 

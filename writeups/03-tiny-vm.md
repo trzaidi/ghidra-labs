@@ -56,6 +56,14 @@ changes from `*(ushort *)(param_1 + 6)` to `vm->pc`.
 A faster route: right-click the parameter in the decompiler and choose
 Auto Create Structure, then rename the generated fields.
 
+Before, with raw pointer arithmetic:
+
+![vm_step before the struct](../docs/images/03-vm-step-before.png)
+
+After applying `vm *`:
+
+![vm_step after the struct](../docs/images/03-vm-step-after.png)
+
 ## 4. Recover the instruction set
 
 `vm_step` subtracts `0x10` from the opcode and jumps through a table at
@@ -114,6 +122,11 @@ instruction so the program reads in the Listing:
 014f  OK
 0150  FAIL
 ```
+
+In the Listing, each bytecode instruction carries its decoded form as an
+EOL comment:
+
+![bytecode annotated in the Listing](../docs/images/03-bytecode-listing.png)
 
 ## 6. Invert the check
 
