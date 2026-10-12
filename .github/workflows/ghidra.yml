@@ -1,0 +1,45 @@
+name: ghidra
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-solve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build from source and run solvers
+        run: make test
+      - name: Run solvers against committed binaries
+        run: python3 solutions/run_tests.py bin
+
+  headless-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Download latest Ghidra release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download --repo NationalSecurityAgency/ghidra \
+            --pattern 'ghidra_*_PUBLIC_*.zip' --dir "$RUNNER_TEMP"
+          unzip -q "$RUNNER_TEMP"/ghidra_*.zip -d "$RUNNER_TEMP"
+          echo "GHIDRA_INSTALL_DIR=$(ls -d "$RUNNER_TEMP"/ghidra_*_PUBLIC)" >> "$GITHUB_ENV"
+
+      - name: Headless analysis with training scripts
+        run: scripts/run_headless.sh bin
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ghidra-reports
+          path: reports/

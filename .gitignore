@@ -1,0 +1,6 @@
+build/
+reports/
+*.gpr
+*.rep/
+__pycache__/
+.DS_Store
