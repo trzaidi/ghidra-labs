@@ -9,7 +9,7 @@ jobs:
   build-and-solve:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Build from source and run solvers
         run: make test
       - name: Run solvers against committed binaries
@@ -18,9 +18,9 @@ jobs:
   headless-analysis:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "21"
@@ -34,8 +34,8 @@ jobs:
           unzip -q "$RUNNER_TEMP"/ghidra_*.zip -d "$RUNNER_TEMP"
           echo "GHIDRA_INSTALL_DIR=$(ls -d "$RUNNER_TEMP"/ghidra_*_PUBLIC)" >> "$GITHUB_ENV"
 
-      - name: Headless analysis with training scripts
-        run: scripts/run_headless.sh bin
+      - name: Headless analysis with lab scripts
+        run: bash scripts/run_headless.sh bin
 
       - name: Upload reports
         if: always()
